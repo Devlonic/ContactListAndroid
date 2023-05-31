@@ -27,6 +27,21 @@ public class MainActivity extends AppCompatActivity {
         lvContacts.setAdapter(adapter);
         lvContacts.setOnItemClickListener(this::showFullInfoContact);
         lvContacts.setOnItemLongClickListener(this::deleteContact);
+
+        Intent i = getIntent();
+        if(i.getSerializableExtra("contact") != null) {
+            Contact contact = (Contact) getIntent().getSerializableExtra("contact");
+            int position = (int)getIntent().getSerializableExtra("position");
+            Contact contactToEdit = contacts.get(position);
+
+            contactToEdit.setEmail(contact.getEmail());
+            contactToEdit.setFirstName(contact.getFirstName());
+            contactToEdit.setLastName(contact.getLastName());
+            contactToEdit.setPhone(contact.getPhone());
+
+            adapter.notifyDataSetChanged();
+            Toast.makeText(this, "edited", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private boolean deleteContact(AdapterView<?> adapterView, View view, int position, long l) {
@@ -40,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         Contact contact = contacts.get(position);
         Intent intent = new Intent(this, FullInfoActivity.class);
         intent.putExtra("contact", contact);
+        intent.putExtra("position", position);
         startActivity(intent);
     }
 }

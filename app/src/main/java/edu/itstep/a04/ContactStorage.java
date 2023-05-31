@@ -7,6 +7,7 @@ public class ContactStorage {
     private static List<Contact> contacts = new ArrayList<>();
 
     public static List<Contact> getAllContacts() {
+        contacts.clear();
 
         contacts.add(new Contact(R.drawable.android, "Ivan", "Ivanov", "066-666", "ivan@gmail.com"));
         contacts.add(new Contact(R.drawable.android, "Petr", "Petrov", "077-777", "petr@gmail.com"));
